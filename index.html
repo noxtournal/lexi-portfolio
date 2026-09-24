@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!--
+    ================================================================
+    YOU DON'T NEED TO EDIT THIS FILE.
+    All your text lives in content.js. This file only controls layout.
+    ================================================================
+  -->
+
+  <style>
+    /* ---------- Colors & sizes (change here to restyle every page) ---------- */
+    :root {
+      --ink: #000000;          /* headings and name */
+      --body: #555a60;         /* paragraph text */
+      --muted: #7a7f86;        /* dates, small details */
+      --rule-light: #e6e6e6;   /* thin divider lines */
+      --accent: #1f3fe0;       /* links (overridden by accentColor in content.js) */
+      --page-width: 1100px;
+      color-scheme: light;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: #ffffff;
+      color: var(--body);
+      font-size: 1.125rem;
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    .page {
+      max-width: var(--page-width);
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 3rem;
+    }
+
+    /* ---------- Header: name, title, contact bar ---------- */
+    header { text-align: center; }
+
+    h1 {
+      color: var(--ink);
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .title {
+      color: var(--ink);
+      font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+      font-weight: 300;
+      margin-top: 0.6rem;
+    }
+
+    /* The contact row with the thick black line under it */
+    .contact {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem 2rem;
+      margin-top: 2.25rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 4px solid var(--ink);
+      color: var(--ink);
+      font-weight: 400;
+      font-size: 1.1rem;
+    }
+    .contact a { color: var(--ink); text-decoration: none; }
+    .contact a:hover { color: var(--accent); }
+    .contact-item { display: inline-flex; align-items: center; gap: 0.5rem; }
+    .contact-icons { display: inline-flex; gap: 1rem; }
+    .icon { width: 1.35rem; height: 1.35rem; flex-shrink: 0; }
+
+    /* ---------- Sections ---------- */
+    section { margin-top: 3.5rem; }
+
+    h2 {
+      color: var(--ink);
+      font-size: 2rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      padding-bottom: 0.9rem;
+      border-bottom: 1px solid var(--rule-light);
+      margin-bottom: 1.75rem;
+    }
+
+    .entry + .entry { margin-top: 2.25rem; }
+
+    .entry-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0 1rem;
+    }
+
+    h3 {
+      color: var(--ink);
+      font-size: 1.5rem;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+    h3 a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 2px solid var(--accent);
+    }
+    h3 a:hover { border-bottom-width: 3px; }
+
+    .date { color: var(--muted); font-size: 1rem; white-space: nowrap; }
+    .sub  { color: var(--ink); font-weight: 400; }
+    .tools { color: var(--muted); font-size: 1rem; font-style: italic; }
+
+    .entry p { margin-top: 0.35rem; text-align: justify; hyphens: auto; }
+    .entry p + p { margin-top: 1.1rem; }
+
+    .entry ul { margin: 0.4rem 0 0 1.25rem; }
+    .entry li + li { margin-top: 0.2rem; }
+
+    .about { text-align: justify; hyphens: auto; }
+
+    .skills { display: grid; grid-template-columns: max-content 1fr; gap: 0.4rem 1.5rem; }
+    .skills dt { color: var(--ink); font-weight: 600; }
+
+    /* ---------- Footer ---------- */
+    footer {
+      margin-top: 5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--rule-light);
+      text-align: center;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    /* ---------- Error message (only shows if content.js is broken) ---------- */
+    .error {
+      max-width: 640px; margin: 4rem auto; padding: 1.5rem;
+      border: 2px solid #c0392b; color: #7b1d13; font-weight: 400;
+    }
+    .error code { background: #fbeae8; padding: 0 0.3rem; }
+
+    /* ---------- Keyboard focus ---------- */
+    a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+    /* ---------- Phones ---------- */
+    @media (max-width: 700px) {
+      body { font-size: 1.05rem; }
+      .contact { justify-content: center; text-align: center; }
+      .entry-head { flex-direction: column; }  /* date always sits under the title */
+      .entry p, .about { text-align: left; }
+      h2 { font-size: 1.6rem; }
+      .skills { grid-template-columns: 1fr; }
+      .skills dd { margin-bottom: 0.6rem; }
+    }
+
+    /* ---------- Printing (Ctrl+P makes a clean one-pager) ---------- */
+    @media print {
+      .page { padding: 0; }
+      section { margin-top: 1.5rem; break-inside: avoid-page; }
+      footer { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page" id="app"></main>
+
+  <!-- Loads YOUR content. If you rename content.js, change it here too. -->
+  <script src="content.js"></script>
+
+  <script>
+    // ---------- Small SVG icons (drawn in code so no image files are needed) ----------
+    const ICONS = {
+      email: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3.5 6l8.5 7 8.5-7"/></svg>',
+      github: '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>',
+      linkedin: '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>',
+      resume: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M14 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V8Z"/><path d="M14 3v5h5M8.5 13h7M8.5 16.5h7"/></svg>'
+    };
+
+    // Makes text safe to put on the page (so a stray < or & can't break the layout)
+    function esc(text) {
+      return String(text ?? "").replace(/[&<>"']/g, c =>
+        ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    }
+
+    // True when a field has real content (not "", not missing, not an empty list)
+    function has(value) {
+      if (Array.isArray(value)) return value.length > 0;
+      return value !== undefined && value !== null && String(value).trim() !== "";
+    }
+
+    // Builds one <section> with a heading, or nothing if the list is empty
+    function section(heading, items, buildItem) {
+      if (!has(items)) return "";
+      return `<section><h2>${esc(heading)}</h2>${items.map(buildItem).join("")}</section>`;
+    }
+
+    function render(p) {
+      const c = p.contact || {};
+      document.title = has(p.name) ? `${p.name}${has(p.title) ? " | " + p.title : ""}` : "Portfolio";
+      if (has(p.accentColor)) document.documentElement.style.setProperty("--accent", p.accentColor);
+
+      // ----- Contact bar: text items on the left, icon links on the right -----
+      const textItems = [
+        has(c.email)    && `<a class="contact-item" href="mailto:${esc(c.email)}">${ICONS.email}${esc(c.email)}</a>`,
+        has(c.location) && `<span class="contact-item">${esc(c.location)}</span>`,
+        has(c.degree)   && `<span class="contact-item">${esc(c.degree)}</span>`
+      ].filter(Boolean);
+
+      const iconLinks = [
+        has(c.resume)   && `<a href="${esc(c.resume)}" target="_blank" rel="noopener" aria-label="Resume (PDF)" title="Resume">${ICONS.resume}</a>`,
+        has(c.linkedin) && `<a href="${esc(c.linkedin)}" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">${ICONS.linkedin}</a>`,
+        has(c.github)   && `<a href="${esc(c.github)}" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">${ICONS.github}</a>`
+      ].filter(Boolean);
+
+      const header = `
+        <header>
+          <h1>${esc(p.name)}</h1>
+          ${has(p.title) ? `<p class="title">${esc(p.title)}</p>` : ""}
+          <div class="contact">
+            ${textItems.join("")}
+            ${iconLinks.length ? `<span class="contact-icons">${iconLinks.join("")}</span>` : ""}
+          </div>
+        </header>`;
+
+      const about = has(p.about)
+        ? `<section><h2>About</h2><p class="about">${esc(p.about)}</p></section>` : "";
+
+      // ----- Projects -----
+      const projects = section("Projects", p.projects, pr => {
+        const title = has(pr.link)
+          ? `<a href="${esc(pr.link)}" target="_blank" rel="noopener">${esc(pr.title)}</a>`
+          : esc(pr.title);
+        const paras = [].concat(pr.description || []).filter(has);
+        return `
+          <article class="entry">
+            <div class="entry-head"><h3>${title}</h3>${has(pr.date) ? `<span class="date">${esc(pr.date)}</span>` : ""}</div>
+            ${has(pr.tools) ? `<div class="tools">${esc(pr.tools)}</div>` : ""}
+            ${paras.map(t => `<p>${esc(t)}</p>`).join("")}
+          </article>`;
+      });
+
+      // ----- Experience -----
+      const experience = section("Experience", p.experience, ex => {
+        const where = [ex.org, ex.location].filter(has).map(esc).join(", ");
+        const bullets = [].concat(ex.bullets || []).filter(has);
+        return `
+          <article class="entry">
+            <div class="entry-head"><h3>${esc(ex.role)}</h3>${has(ex.dates) ? `<span class="date">${esc(ex.dates)}</span>` : ""}</div>
+            ${where ? `<div class="sub">${where}</div>` : ""}
+            ${bullets.length ? `<ul>${bullets.map(b => `<li>${esc(b)}</li>`).join("")}</ul>` : ""}
+          </article>`;
+      });
+
+      // ----- Education -----
+      const education = section("Education", p.education, ed => `
+          <article class="entry">
+            <div class="entry-head"><h3>${esc(ed.school)}</h3>${has(ed.dates) ? `<span class="date">${esc(ed.dates)}</span>` : ""}</div>
+            ${has(ed.degree) ? `<div class="sub">${esc(ed.degree)}</div>` : ""}
+            ${has(ed.details) ? `<p>${esc(ed.details)}</p>` : ""}
+          </article>`);
+
+      // ----- Skills (all groups share one list) -----
+      const skillRows = (p.skills || []).filter(s => has(s.group) || has(s.items));
+      const skills = skillRows.length ? `
+        <section><h2>Skills</h2>
+          <dl class="skills">
+            ${skillRows.map(s => `<dt>${esc(s.group)}</dt><dd>${esc(s.items)}</dd>`).join("")}
+          </dl>
+        </section>` : "";
+
+      const footer = has(p.footer) ? `<footer>${esc(p.footer)}</footer>` : "";
+
+      document.getElementById("app").innerHTML =
+        header + about + projects + experience + education + skills + footer;
+    }
+
+    // If content.js has a typo, show a helpful message instead of a blank page
+    if (typeof PORTFOLIO === "undefined") {
+      document.getElementById("app").innerHTML = `
+        <div class="error">
+          <strong>Your page couldn't read <code>content.js</code>.</strong><br>
+          Check the last thing you edited for a missing quote <code>"</code>,
+          a missing comma <code>,</code>, or a missing bracket <code>}</code>.
+          To find the exact line, press F12 (or right-click → Inspect), open the Console tab, and look for the red error with a line number.
+        </div>`;
+    } else {
+      render(PORTFOLIO);
+    }
+  </script>
+</body>
+</html>
